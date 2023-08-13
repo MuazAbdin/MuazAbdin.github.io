@@ -490,6 +490,7 @@ details > summary > span {
 
 	.logo {
 		height: 100%;
+		width: auto;
 	}
 
 	.logo img {
