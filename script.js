@@ -2,7 +2,28 @@ const navButtons = document.querySelectorAll('.nav-item'),
 			expandBtn = document.querySelector('.btn-expand'),
 			collapseBtn = document.querySelector('.btn-collapse'),
 			navBar = document.querySelector('.navbar'),
-			logo = document.querySelector('.logo');
+			logo = document.querySelector('.logo'),
+			mainArticles = document.querySelectorAll('.main__article');
+
+
+const isArticleActive = (article) => {
+	return (article.getBoundingClientRect().top <= window.innerHeight/8 &&
+					article.getBoundingClientRect().bottom >= window.innerHeight/8) ||
+				 (article.getBoundingClientRect().top >= window.innerHeight/8 &&
+					(window.innerHeight + window.scrollY) >= document.body.offsetHeight);
+}
+
+window.addEventListener('scroll', () => {
+	let activeArticleId = ''; 
+	mainArticles.forEach( article => {
+		if (isArticleActive(article)) { activeArticleId = article.id; }
+	});
+	navButtons.forEach( btn => {
+		const btnHref = btn.firstElementChild.getAttribute('href').slice(1);
+		btn.dataset.active = btnHref === activeArticleId ? true : false;
+	} );
+
+});
 
 
 const expand = () => {
